@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { track } from '@/lib/analytics'
 
 function SavingsTicker() {
   const [amount, setAmount] = useState(4832441)
@@ -76,12 +77,14 @@ export default function Hero() {
           <div className="flex flex-col sm:flex-row gap-4 mb-6">
             <a
               href="#pricing"
+              onClick={() => track('cta_click_hero_trial')}
               className="bg-accent text-bg-primary font-bold text-lg rounded-xl px-8 py-4 text-center hover:opacity-90 transition-opacity"
             >
               Start Free — First Month On Us
             </a>
             <a
               href="#demo"
+              onClick={() => track('cta_click_hero_demo')}
               className="border border-white/20 text-white font-semibold text-lg rounded-xl px-8 py-4 text-center hover:border-white/40 transition-colors"
             >
               See a Live Demo

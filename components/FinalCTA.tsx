@@ -1,3 +1,7 @@
+'use client'
+
+import { track } from '@/lib/analytics'
+
 export default function FinalCTA() {
   return (
     <section className="relative bg-bg-primary py-32 px-6 overflow-hidden">
@@ -19,12 +23,14 @@ export default function FinalCTA() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
           <a
             href="#signup"
+            onClick={() => track('cta_click_final_trial')}
             className="bg-accent text-bg-primary font-bold text-lg rounded-xl px-10 py-4 text-center hover:opacity-90 transition-opacity"
           >
             Start My Free Month — No Card Needed
           </a>
           <a
             href="#demo"
+            onClick={() => track('cta_click_final_demo')}
             className="border border-white/20 text-white font-semibold text-lg rounded-xl px-10 py-4 text-center hover:border-white/40 transition-colors"
           >
             Book a Demo Instead

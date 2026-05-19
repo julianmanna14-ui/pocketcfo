@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { track } from '@/lib/analytics'
 
 export default function ExitIntent() {
   const [visible, setVisible] = useState(false)
@@ -10,6 +11,7 @@ export default function ExitIntent() {
     const handleMouseLeave = (e: MouseEvent) => {
       if ((e.clientY === undefined || e.clientY <= 0) && !dismissed) {
         setVisible(true)
+        track('exit_intent_shown')
       }
     }
 
@@ -20,6 +22,7 @@ export default function ExitIntent() {
   const dismiss = () => {
     setVisible(false)
     setDismissed(true)
+    track('exit_intent_dismissed')
   }
 
   if (!visible) return null
@@ -46,7 +49,7 @@ export default function ExitIntent() {
         <div className="flex flex-col gap-3">
           <a
             href="#pricing"
-            onClick={dismiss}
+            onClick={() => { dismiss(); track('exit_intent_converted') }}
             className="bg-accent text-bg-primary font-bold py-3 rounded-xl text-center hover:opacity-90 transition-opacity"
           >
             Start My Free Month

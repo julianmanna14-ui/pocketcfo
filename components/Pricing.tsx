@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { track } from '@/lib/analytics'
 
 const tiers = [
   {
@@ -75,13 +76,13 @@ export default function Pricing() {
         {/* Monthly / Annual toggle */}
         <div className="flex items-center gap-4 mb-12">
           <button
-            onClick={() => setAnnual(false)}
+            onClick={() => { setAnnual(false); track('pricing_toggle_monthly') }}
             className={`text-sm font-semibold px-4 py-2 rounded-lg transition-colors ${!annual ? 'bg-accent text-bg-primary' : 'text-text-secondary hover:text-white'}`}
           >
             Monthly
           </button>
           <button
-            onClick={() => setAnnual(true)}
+            onClick={() => { setAnnual(true); track('pricing_toggle_annual') }}
             className={`text-sm font-semibold px-4 py-2 rounded-lg transition-colors ${annual ? 'bg-accent text-bg-primary' : 'text-text-secondary hover:text-white'}`}
           >
             Annual
@@ -134,6 +135,7 @@ export default function Pricing() {
 
               <a
                 href="#signup"
+                onClick={() => track('cta_click_pricing_trial', { tier: tier.name })}
                 className={`text-center font-bold py-3 rounded-xl transition-opacity hover:opacity-90 ${
                   tier.popular
                     ? 'bg-accent text-bg-primary'
