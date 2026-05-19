@@ -4,6 +4,7 @@ import Hero from '@/components/Hero'
 import HowItWorks from '@/components/HowItWorks'
 import Features from '@/components/Features'
 import SocialProof from '@/components/SocialProof'
+import Pricing from '@/components/Pricing'
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <HowItWorks />
       <Features />
       <SocialProof />
+      <Pricing />
     </main>
   )
 }
