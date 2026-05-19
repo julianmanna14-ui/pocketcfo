@@ -27,7 +27,7 @@ const stats = [
 
 export default function SocialProof() {
   return (
-    <section className="bg-bg-secondary py-24 px-6">
+    <section id="social-proof" className="bg-bg-secondary py-24 px-6">
       <div className="max-w-7xl mx-auto">
         <p className="text-accent text-sm font-semibold uppercase tracking-widest mb-4">Real Businesses. Real Savings.</p>
         <h2 className="text-3xl md:text-5xl font-black text-white mb-16">
