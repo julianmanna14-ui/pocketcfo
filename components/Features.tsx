@@ -1,3 +1,7 @@
+'use client'
+
+import { FadeInUp } from '@/components/FadeInUp'
+
 const features = [
   { icon: '💳', title: 'Subscription Audit', description: 'Finds duplicate, unused, or overpriced SaaS tools you forgot you\'re paying for.' },
   { icon: '🧾', title: 'Expense Analysis', description: 'Flags unusual spending patterns and categories bleeding cash.' },
@@ -30,15 +34,14 @@ export default function Features() {
 
         {/* Feature cards grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
-          {features.map((f) => (
-            <div
-              key={f.title}
-              className="bg-bg-secondary border border-white/5 rounded-2xl p-6 hover:border-accent/20 transition-colors"
-            >
-              <div className="text-3xl mb-4">{f.icon}</div>
-              <h3 className="text-white font-bold text-lg mb-2">{f.title}</h3>
-              <p className="text-text-secondary text-sm leading-relaxed">{f.description}</p>
-            </div>
+          {features.map((f, index) => (
+            <FadeInUp key={f.title} delay={index * 0.1}>
+              <div className="bg-bg-secondary border border-white/5 rounded-2xl p-6 hover:border-accent/20 transition-colors">
+                <div className="text-3xl mb-4">{f.icon}</div>
+                <h3 className="text-white font-bold text-lg mb-2">{f.title}</h3>
+                <p className="text-text-secondary text-sm leading-relaxed">{f.description}</p>
+              </div>
+            </FadeInUp>
           ))}
         </div>
 

@@ -1,3 +1,7 @@
+'use client'
+
+import { FadeInUp } from '@/components/FadeInUp'
+
 const testimonials = [
   {
     quote: 'Within the first week, the AI found $1,200/month in overlapping software subscriptions we completely forgot about. That\'s $14,400 back in our pocket every year.',
@@ -36,26 +40,28 @@ export default function SocialProof() {
 
         {/* Testimonial cards */}
         <div className="grid md:grid-cols-3 gap-6 mb-16">
-          {testimonials.map((t) => (
-            <div key={t.name} className="bg-bg-primary border border-white/10 rounded-2xl p-6 flex flex-col justify-between">
-              <div>
-                <div className="flex gap-1 mb-4">
-                  {[...Array(5)].map((_, i) => (
-                    <span key={i} className="text-accent text-lg">★</span>
-                  ))}
-                </div>
-                <p className="text-text-secondary text-sm leading-relaxed mb-6">"{t.quote}"</p>
-              </div>
-              <div className="flex items-center justify-between">
+          {testimonials.map((t, index) => (
+            <FadeInUp key={t.name} delay={index * 0.15}>
+              <div className="bg-bg-primary border border-white/10 rounded-2xl p-6 flex flex-col justify-between">
                 <div>
-                  <p className="text-white font-semibold text-sm">{t.name}</p>
-                  <p className="text-text-secondary text-xs">{t.role}</p>
+                  <div className="flex gap-1 mb-4">
+                    {[...Array(5)].map((_, i) => (
+                      <span key={i} className="text-accent text-lg">★</span>
+                    ))}
+                  </div>
+                  <p className="text-text-secondary text-sm leading-relaxed mb-6">"{t.quote}"</p>
                 </div>
-                <span className="bg-accent/10 text-accent text-xs font-semibold px-3 py-1 rounded-full">
-                  {t.saved}
-                </span>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-white font-semibold text-sm">{t.name}</p>
+                    <p className="text-text-secondary text-xs">{t.role}</p>
+                  </div>
+                  <span className="bg-accent/10 text-accent text-xs font-semibold px-3 py-1 rounded-full">
+                    {t.saved}
+                  </span>
+                </div>
               </div>
-            </div>
+            </FadeInUp>
           ))}
         </div>
 

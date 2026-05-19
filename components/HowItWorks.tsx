@@ -1,3 +1,7 @@
+'use client'
+
+import { FadeInUp } from '@/components/FadeInUp'
+
 const steps = [
   {
     number: '01',
@@ -33,15 +37,17 @@ export default function HowItWorks() {
           {/* Connecting line (desktop only) */}
           <div className="hidden md:block absolute top-8 left-[calc(16.67%+1rem)] right-[calc(16.67%+1rem)] h-px bg-accent/20" />
 
-          {steps.map((step) => (
-            <div key={step.number} className="relative">
-              <div className="w-16 h-16 bg-accent/10 border border-accent/30 rounded-2xl flex items-center justify-center text-2xl mb-6">
-                {step.icon}
+          {steps.map((step, index) => (
+            <FadeInUp key={step.number} delay={index * 0.15}>
+              <div className="relative">
+                <div className="w-16 h-16 bg-accent/10 border border-accent/30 rounded-2xl flex items-center justify-center text-2xl mb-6">
+                  {step.icon}
+                </div>
+                <p className="text-accent text-xs font-bold uppercase tracking-widest mb-2">Step {step.number}</p>
+                <h3 className="text-xl font-bold text-white mb-3">{step.title}</h3>
+                <p className="text-text-secondary leading-relaxed">{step.description}</p>
               </div>
-              <p className="text-accent text-xs font-bold uppercase tracking-widest mb-2">Step {step.number}</p>
-              <h3 className="text-xl font-bold text-white mb-3">{step.title}</h3>
-              <p className="text-text-secondary leading-relaxed">{step.description}</p>
-            </div>
+            </FadeInUp>
           ))}
         </div>
 
