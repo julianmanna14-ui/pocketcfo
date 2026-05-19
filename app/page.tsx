@@ -8,6 +8,7 @@ import Pricing from '@/components/Pricing'
 import FAQ from '@/components/FAQ'
 import FinalCTA from '@/components/FinalCTA'
 import Footer from '@/components/Footer'
+import ExitIntent from '@/components/ExitIntent'
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
       <FAQ />
       <FinalCTA />
       <Footer />
+      <ExitIntent />
     </main>
   )
 }
