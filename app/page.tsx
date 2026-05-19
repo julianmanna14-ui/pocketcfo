@@ -6,6 +6,7 @@ import Features from '@/components/Features'
 import SocialProof from '@/components/SocialProof'
 import Pricing from '@/components/Pricing'
 import FAQ from '@/components/FAQ'
+import FinalCTA from '@/components/FinalCTA'
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
       <SocialProof />
       <Pricing />
       <FAQ />
+      <FinalCTA />
     </main>
   )
 }
