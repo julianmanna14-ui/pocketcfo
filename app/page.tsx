@@ -5,6 +5,7 @@ import HowItWorks from '@/components/HowItWorks'
 import Features from '@/components/Features'
 import SocialProof from '@/components/SocialProof'
 import Pricing from '@/components/Pricing'
+import FAQ from '@/components/FAQ'
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <Features />
       <SocialProof />
       <Pricing />
+      <FAQ />
     </main>
   )
 }
