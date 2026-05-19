@@ -66,10 +66,10 @@ export default function SocialProof() {
         </div>
 
         {/* Stats bar */}
-        <div className="grid grid-cols-3 gap-6 border-t border-white/10 pt-12">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 border-t border-white/10 pt-12">
           {stats.map((s) => (
             <div key={s.label} className="text-center">
-              <p className="text-accent text-3xl md:text-4xl font-black mb-2">{s.value}</p>
+              <p className="text-accent text-2xl md:text-3xl lg:text-4xl font-black mb-2">{s.value}</p>
               <p className="text-text-secondary text-sm">{s.label}</p>
             </div>
           ))}

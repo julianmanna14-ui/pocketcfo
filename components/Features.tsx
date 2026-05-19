@@ -53,6 +53,7 @@ export default function Features() {
         </div>
 
         {/* Hiring comparison table */}
+        <div className="overflow-x-auto">
         <div className="bg-bg-secondary border border-white/10 rounded-2xl overflow-hidden">
           <div className="grid grid-cols-2 bg-white/5">
             <div className="p-4 text-text-secondary text-sm font-semibold uppercase tracking-wide border-r border-white/10">
@@ -75,6 +76,7 @@ export default function Features() {
             <div className="p-4 text-white font-bold text-sm border-r border-white/10">TRUE COST: $90K–$150K+/yr</div>
             <div className="p-4 text-accent font-bold text-sm">A fraction of that. Daily.</div>
           </div>
+        </div>
         </div>
 
         {/* Anchor callout */}
