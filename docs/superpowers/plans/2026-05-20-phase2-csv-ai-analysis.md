@@ -1071,7 +1071,7 @@ git commit -m "feat: update dashboard to show real AI analysis findings"
 1. Go to **vercel.com/dashboard** → pocketcfo → **Settings** → **Environments**
 2. Add variable:
    - Key: `ANTHROPIC_API_KEY`
-   - Value: `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`
+   - Value: your Anthropic API key (from console.anthropic.com → API Keys)
 3. Save
 
 - [ ] **Step 2: Push to GitHub (triggers Vercel redeploy)**
