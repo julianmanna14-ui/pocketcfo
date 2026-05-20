@@ -134,7 +134,7 @@ export default function Pricing() {
               </ul>
 
               <a
-                href="#signup"
+                href="/signup"
                 onClick={() => track('cta_click_pricing_trial', { tier: tier.name })}
                 className={`text-center font-bold py-3 rounded-xl transition-opacity hover:opacity-90 ${
                   tier.popular

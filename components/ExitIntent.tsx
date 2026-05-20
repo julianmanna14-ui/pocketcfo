@@ -48,7 +48,7 @@ export default function ExitIntent() {
 
         <div className="flex flex-col gap-3">
           <a
-            href="#pricing"
+            href="/signup"
             onClick={() => { dismiss(); track('exit_intent_converted') }}
             className="bg-accent text-bg-primary font-bold py-3 rounded-xl text-center hover:opacity-90 transition-opacity"
           >

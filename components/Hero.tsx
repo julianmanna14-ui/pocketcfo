@@ -76,7 +76,7 @@ export default function Hero() {
 
           <div className="flex flex-col sm:flex-row gap-4 mb-6">
             <a
-              href="#pricing"
+              href="/signup"
               onClick={() => track('cta_click_hero_trial')}
               className="bg-accent text-bg-primary font-bold text-lg rounded-xl px-8 py-4 text-center hover:opacity-90 transition-opacity"
             >

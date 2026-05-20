@@ -23,7 +23,7 @@ export default function Nav() {
             Book a Demo
           </a>
           <a
-            href="#pricing"
+            href="/signup"
             className="text-sm font-semibold bg-accent text-bg-primary rounded-lg px-4 py-2 hover:opacity-90 transition-opacity"
           >
             Start Free Trial

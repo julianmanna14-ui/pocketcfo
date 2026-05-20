@@ -22,7 +22,7 @@ export default function FinalCTA() {
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
           <a
-            href="#signup"
+            href="/signup"
             onClick={() => track('cta_click_final_trial')}
             className="bg-accent text-bg-primary font-bold text-lg rounded-xl px-10 py-4 text-center hover:opacity-90 transition-opacity"
           >
