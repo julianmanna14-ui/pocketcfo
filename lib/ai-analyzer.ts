@@ -51,20 +51,34 @@ export async function analyzeWithClaude(summary: TransactionSummary): Promise<An
     apiKey: process.env.ANTHROPIC_API_KEY,
   })
 
-  const userMessage = `Analyze this financial data:
+  const recurringList = summary.recurringCharges.length > 0
+    ? summary.recurringCharges.map((r) => `  * "${r.name}" — monthly cost: $${r.amount}`).join('\n')
+    : '  None detected'
 
-Date range: ${summary.dateRange.start} to ${summary.dateRange.end}
-Total transactions: ${summary.totalTransactions}
-Total revenue: $${summary.totalRevenue.toLocaleString()}
-Total expenses: $${summary.totalExpenses.toLocaleString()}
+  const largestList = summary.largestExpenses.length > 0
+    ? summary.largestExpenses.map((e) => `  * "${e.description}" — amount: $${e.amount} on ${e.date}`).join('\n')
+    : '  None'
 
-Recurring charges detected:
-${summary.recurringCharges.map((r) => `- ${r.name}: $${r.amount}/month (${r.frequency})`).join('\n') || 'None detected'}
+  const userMessage = `Analyze this small business financial data and return ONLY valid JSON.
 
-Largest expenses:
-${summary.largestExpenses.map((e) => `- ${e.description}: $${e.amount} on ${e.date}`).join('\n') || 'None'}
+FINANCIAL SUMMARY:
+- Date range: ${summary.dateRange.start} to ${summary.dateRange.end}
+- Number of transactions: ${summary.totalTransactions}
+- Total income received: $${summary.totalRevenue.toLocaleString()}
+- Total money spent (expenses): $${summary.totalExpenses.toLocaleString()}
 
-Return your analysis as JSON only.`
+RECURRING EXPENSE CHARGES (these repeat every month):
+${recurringList}
+
+TOP INDIVIDUAL EXPENSES:
+${largestList}
+
+INSTRUCTIONS:
+- "subscriptions.total" means the NUMBER of distinct subscription services found, NOT a dollar amount
+- "subscriptions.unused" means the count of subscriptions that appear to be duplicate or unused
+- Look for duplicate tools (e.g. both Slack and Teams for messaging)
+- All "amount" fields are dollar amounts, NOT counts
+- Return ONLY the JSON object, no explanation text`
 
   const message = await client.messages.create({
     model: 'claude-sonnet-4-6',
