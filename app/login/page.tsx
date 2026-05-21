@@ -69,7 +69,7 @@ export default async function LoginPage({
           </form>
 
           <p className="text-center text-text-secondary text-sm mt-6">
-            Don't have an account?{' '}
+            Don&apos;t have an account?{' '}
             <Link href="/signup" className="text-accent hover:underline">
               Sign up free →
             </Link>

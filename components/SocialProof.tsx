@@ -35,7 +35,7 @@ export default function SocialProof() {
       <div className="max-w-7xl mx-auto">
         <p className="text-accent text-sm font-semibold uppercase tracking-widest mb-4">Real Businesses. Real Savings.</p>
         <h2 className="text-3xl md:text-5xl font-black text-white mb-16">
-          SMB owners found money they didn't know they had.
+          SMB owners found money they didn&apos;t know they had.
         </h2>
 
         {/* Testimonial cards */}
@@ -49,7 +49,7 @@ export default function SocialProof() {
                       <span key={i} className="text-accent text-lg">★</span>
                     ))}
                   </div>
-                  <p className="text-text-secondary text-sm leading-relaxed mb-6">"{t.quote}"</p>
+                  <p className="text-text-secondary text-sm leading-relaxed mb-6">&ldquo;{t.quote}&rdquo;</p>
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
