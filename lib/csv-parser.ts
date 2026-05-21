@@ -107,12 +107,20 @@ export async function parseFinancialFile(buffer: Buffer, mimeType: string): Prom
     throw new Error('No transactions found')
   }
 
+  console.log('[csv-parser] total rows:', rows.length)
+  console.log('[csv-parser] sample row:', JSON.stringify(rows[0]))
+  console.log('[csv-parser] sample amounts:', rows.slice(0, 5).map(r => r.amount))
+
   const dates = rows.map((r) => r.date).sort()
   const revenues = rows.filter((r) => r.amount > 0)
   const expenses = rows.filter((r) => r.amount < 0)
 
+  console.log('[csv-parser] revenues:', revenues.length, 'expenses:', expenses.length)
+
   const totalRevenue = revenues.reduce((sum, r) => sum + r.amount, 0)
   const totalExpenses = Math.abs(expenses.reduce((sum, r) => sum + r.amount, 0))
+
+  console.log('[csv-parser] totalRevenue:', totalRevenue, 'totalExpenses:', totalExpenses)
 
   const largestExpenses = expenses
     .sort((a, b) => a.amount - b.amount)
