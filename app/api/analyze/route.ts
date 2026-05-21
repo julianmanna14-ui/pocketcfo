@@ -50,26 +50,31 @@ export async function POST(request: NextRequest) {
 
   // 5. Parse file
   const buffer = Buffer.from(await file.arrayBuffer())
+  console.log('[analyze] file type:', file.type, 'size:', file.size, 'name:', file.name)
   let summary
   try {
     summary = await parseFinancialFile(buffer, file.type)
+    console.log('[analyze] parsed:', summary.totalTransactions, 'transactions')
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Parse failed'
+    console.error('[analyze] parse error:', message)
     if (message.includes('No transactions')) {
       return NextResponse.json(
         { error: "We couldn't find any transactions in this file. Try exporting from QuickBooks directly." },
         { status: 422 }
       )
     }
-    return NextResponse.json({ error: 'Failed to read file. Please try again.' }, { status: 500 })
+    return NextResponse.json({ error: `Failed to read file: ${message}` }, { status: 500 })
   }
 
   // 6. Analyze with Claude
   let findings
   try {
     findings = await analyzeWithClaude(summary)
-  } catch {
-    return NextResponse.json({ error: 'Analysis failed. Please try again.' }, { status: 500 })
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err)
+    console.error('[analyze] Claude error:', msg)
+    return NextResponse.json({ error: `Analysis failed: ${msg}` }, { status: 500 })
   }
 
   // 7. Save to Supabase (upsert — replace previous analysis for this user)
