@@ -17,7 +17,7 @@ export default function FinalCTA() {
           Today.
         </h2>
         <p className="text-text-secondary text-lg mb-10">
-          Join hundreds of SMB owners who found money they didn't know they had — in the first week.
+          Join hundreds of SMB owners who found money they didn&apos;t know they had — in the first week.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">

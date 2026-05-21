@@ -36,7 +36,7 @@ function DashboardMockup() {
       <div className="space-y-3">
         <div className="bg-accent/10 border border-accent/30 rounded-lg p-3">
           <p className="text-accent text-xs font-semibold uppercase tracking-wide mb-1">⚠ Savings Opportunity Found</p>
-          <p className="text-white text-sm font-medium">You're overpaying $840/mo on SaaS subscriptions</p>
+          <p className="text-white text-sm font-medium">You&apos;re overpaying $840/mo on SaaS subscriptions</p>
           <p className="text-text-secondary text-xs mt-1">3 duplicate tools identified · Renegotiation possible on 2 contracts</p>
         </div>
         <div className="bg-white/5 rounded-lg p-3">
@@ -65,13 +65,13 @@ export default function Hero() {
           </div>
 
           <h1 className="text-4xl md:text-6xl font-black text-white leading-tight mb-6">
-            You're Losing Money{' '}
+            You&apos;re Losing Money{' '}
             <span className="text-accent">Right Now.</span>{' '}
-            We'll Show You Exactly Where.
+            We&apos;ll Show You Exactly Where.
           </h1>
 
           <p className="text-text-secondary text-lg mb-8 leading-relaxed">
-            While you sleep, your AI CFO is finding money you didn't know you had. Connect QuickBooks or Xero in 60 seconds. Our AI scans every expense, subscription, and vendor contract — then shows you exactly how to save.
+            While you sleep, your AI CFO is finding money you didn&apos;t know you had. Connect QuickBooks or Xero in 60 seconds. Our AI scans every expense, subscription, and vendor contract — then shows you exactly how to save.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 mb-6">

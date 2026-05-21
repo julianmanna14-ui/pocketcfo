@@ -1,11 +1,13 @@
+import Link from 'next/link'
+
 export default function Footer() {
   return (
     <footer className="bg-bg-secondary border-t border-white/5 py-10 px-6">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
         {/* Logo */}
-        <a href="/" className="text-xl font-bold text-white">
+        <Link href="/" className="text-xl font-bold text-white">
           Pocket<span className="text-accent">CFO</span>
-        </a>
+        </Link>
 
         {/* Links */}
         <div className="flex items-center gap-6 text-sm text-text-secondary">

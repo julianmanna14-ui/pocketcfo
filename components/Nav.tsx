@@ -1,11 +1,13 @@
+import Link from 'next/link'
+
 export default function Nav() {
   return (
     <nav className="sticky top-[36px] z-40 w-full bg-bg-primary/90 backdrop-blur border-b border-white/5">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo */}
-        <a href="/" className="text-xl font-bold text-white">
+        <Link href="/" className="text-xl font-bold text-white">
           Pocket<span className="text-accent">CFO</span>
-        </a>
+        </Link>
 
         {/* Center links */}
         <div className="hidden md:flex items-center gap-8 text-sm text-text-secondary">

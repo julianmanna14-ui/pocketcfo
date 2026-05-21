@@ -40,7 +40,7 @@ export default function ExitIntent() {
 
         <div className="text-3xl mb-4">💸</div>
         <h3 className="text-white text-2xl font-black mb-3">
-          Wait — find out how much you're losing before you go.
+          Wait — find out how much you&apos;re losing before you go.
         </h3>
         <p className="text-text-secondary text-sm mb-6">
           Takes 60 seconds. Your first month is completely free.
@@ -58,7 +58,7 @@ export default function ExitIntent() {
             onClick={dismiss}
             className="text-text-secondary text-sm hover:text-white transition-colors"
           >
-            No thanks, I'll keep losing money
+            No thanks, I&apos;ll keep losing money
           </button>
         </div>
       </div>

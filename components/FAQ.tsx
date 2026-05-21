@@ -57,7 +57,7 @@ export default function FAQ() {
       <div className="max-w-3xl mx-auto">
         <p className="text-accent text-sm font-semibold uppercase tracking-widest mb-4">Common Questions</p>
         <h2 className="text-3xl md:text-5xl font-black text-white mb-12">
-          Everything you're wondering about.
+          Everything you&apos;re wondering about.
         </h2>
 
         <div>

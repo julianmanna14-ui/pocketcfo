@@ -48,7 +48,7 @@ export default function Features() {
         {/* Callout box */}
         <div className="border-l-4 border-accent bg-accent/5 rounded-r-2xl p-6 mb-16">
           <p className="text-white font-medium">
-            "Most SMBs have 3–5 fixable cost problems they don't know about. Our AI finds all of them."
+            &quot;Most SMBs have 3–5 fixable cost problems they don&apos;t know about. Our AI finds all of them.&quot;
           </p>
         </div>
 
