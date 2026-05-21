@@ -73,11 +73,18 @@ Return your analysis as JSON only.`
     messages: [{ role: 'user', content: userMessage }],
   })
 
-  const text = message.content[0].type === 'text' ? message.content[0].text : ''
+  const raw = message.content[0].type === 'text' ? message.content[0].text : ''
+
+  // Strip markdown code fences if Claude wrapped the JSON
+  const text = raw
+    .replace(/^```(?:json)?\s*/i, '')
+    .replace(/\s*```\s*$/i, '')
+    .trim()
 
   try {
     return JSON.parse(text) as AnalysisFindings
   } catch {
+    console.error('[analyzer] raw response:', raw.substring(0, 500))
     throw new Error('Claude returned invalid JSON')
   }
 }
