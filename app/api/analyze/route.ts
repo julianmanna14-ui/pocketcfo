@@ -68,6 +68,12 @@ export async function POST(request: NextRequest) {
   }
 
   // 6. Analyze with Claude
+  if (!process.env.ANTHROPIC_API_KEY) {
+    console.error('[analyze] ANTHROPIC_API_KEY is not set in environment')
+    return NextResponse.json({ error: 'Server configuration error: API key missing' }, { status: 500 })
+  }
+  console.log('[analyze] API key present, calling Claude...')
+
   let findings
   try {
     findings = await analyzeWithClaude(summary)
