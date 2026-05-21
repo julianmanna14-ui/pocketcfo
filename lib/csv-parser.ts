@@ -88,7 +88,23 @@ async function parseCsv(buffer: Buffer): Promise<Record<string, string>[]> {
 function parseExcel(buffer: Buffer): Record<string, string>[] {
   const workbook = XLSX.read(buffer, { type: 'buffer' })
   const sheet = workbook.Sheets[workbook.SheetNames[0]]
-  return XLSX.utils.sheet_to_json<Record<string, string>>(sheet, { defval: '' })
+  const data = XLSX.utils.sheet_to_json<Record<string, string>>(sheet, { defval: '' })
+
+  // If Excel has a single column whose name looks like CSV (contains commas),
+  // the user saved a CSV inside Excel — re-parse the cell values as CSV rows
+  if (data.length > 0) {
+    const headers = Object.keys(data[0])
+    if (headers.length === 1 && headers[0].includes(',')) {
+      const csvText = [headers[0], ...data.map((row) => row[headers[0]])].join('\n')
+      const result = Papa.parse<Record<string, string>>(csvText, {
+        header: true,
+        skipEmptyLines: true,
+      })
+      return result.data
+    }
+  }
+
+  return data
 }
 
 export async function parseFinancialFile(buffer: Buffer, mimeType: string): Promise<TransactionSummary> {
