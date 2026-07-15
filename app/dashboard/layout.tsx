@@ -21,9 +21,9 @@ export default function DashboardLayout({
             <Link href="/dashboard" className="text-white font-semibold">
               Dashboard
             </Link>
-            <span className="text-text-secondary cursor-not-allowed">
+            <Link href="/dashboard/settings" className="text-text-secondary hover:text-white transition-colors">
               Settings
-            </span>
+            </Link>
           </div>
 
           {/* Log Out */}
