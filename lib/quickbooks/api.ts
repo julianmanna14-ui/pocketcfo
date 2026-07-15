@@ -60,6 +60,12 @@ export async function fetchQBTransactions(
     accessToken
   )) as TransactionListReport
 
+  console.log('[qb/api] report rows count:', report.Rows?.Row?.length ?? 0)
+  console.log('[qb/api] date range:', start, 'to', end)
+  if (report.Rows?.Row?.length) {
+    console.log('[qb/api] first row sample:', JSON.stringify(report.Rows.Row[0]).slice(0, 300))
+  }
+
   const rows = (report.Rows?.Row ?? []).filter((r) => r.type === 'Data')
 
   const transactions = rows.map((row) => {
@@ -76,8 +82,10 @@ export async function fetchQBTransactions(
     return { date, description, amount }
   }).filter((r) => r.date && r.description && r.amount !== 0)
 
+  console.log('[qb/api] parsed transactions:', transactions.length)
+
   if (transactions.length === 0) {
-    throw new Error('No transactions found in QuickBooks for the last 90 days')
+    throw new Error('No transactions found in QuickBooks for the last 2 years. Try opening your sandbox company and adding sample transactions.')
   }
 
   const revenues = transactions.filter((r) => r.amount > 0)
