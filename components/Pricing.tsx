@@ -6,52 +6,50 @@ import { track } from '@/lib/analytics'
 const tiers = [
   {
     name: 'Starter',
-    monthlyPrice: 79,
-    description: 'Find problems before they sink you.',
+    monthlyPrice: 49,
+    description: 'Find the leaks before they sink you.',
     features: [
-      '1 accounting software connection',
-      'Monthly AI financial report',
+      'CSV & QuickBooks sync',
+      'AI financial analysis',
       'Subscription & expense audit',
+      'Weekly digest email',
       'Email support',
-      'First month free',
     ],
-    notIncluded: ['Vendor benchmarking', 'Cash flow detection', 'Payroll analysis', 'Multi-user access'],
-    cta: 'Start Free Month',
+    notIncluded: ['AI chat assistant', 'Priority support', 'Multi-company support'],
+    cta: 'Get Starter',
+    plan: 'starter',
     popular: false,
   },
   {
-    name: 'Growth',
-    monthlyPrice: 149,
-    description: 'Monitor and fix problems in real time.',
+    name: 'Pro',
+    monthlyPrice: 99,
+    description: 'Ask questions, get answers, take action.',
     features: [
-      'Multiple software connections',
-      'Real-time AI monitoring',
-      'Subscription & expense audit',
-      'Vendor contract benchmarking',
+      'Everything in Starter',
+      'AI chat — ask anything about your finances',
       'Cash flow gap detection',
       'Revenue leakage detection',
       'Priority support',
-      'First month free',
     ],
-    notIncluded: ['Payroll efficiency analysis', 'Multi-user access', 'Quarterly strategy call'],
-    cta: 'Start Free Month',
+    notIncluded: ['Multi-company support', 'Dedicated CFO review'],
+    cta: 'Get Pro',
+    plan: 'pro',
     popular: true,
   },
   {
-    name: 'Pro',
-    monthlyPrice: 299,
-    description: 'Optimize everything + human backup.',
+    name: 'Business',
+    monthlyPrice: 199,
+    description: 'Full CFO coverage for growing companies.',
     features: [
-      'Everything in Growth',
-      'Payroll efficiency analysis',
-      'Multi-user access',
+      'Everything in Pro',
+      'Multi-company support',
+      'Dedicated CFO review',
       'Custom savings forecasting',
-      'Quarterly strategy call',
       'Phone + priority support',
-      'First month free',
     ],
     notIncluded: [],
-    cta: 'Start Free Month',
+    cta: 'Get Business',
+    plan: 'business',
     popular: false,
   },
 ]
@@ -73,25 +71,10 @@ export default function Pricing() {
           Your first month is completely free. No credit card required. Cancel anytime.
         </p>
 
-        {/* Monthly / Annual toggle */}
-        <div className="flex items-center gap-4 mb-12">
-          <button
-            onClick={() => { setAnnual(false); track('pricing_toggle_monthly') }}
-            className={`text-sm font-semibold px-4 py-2 rounded-lg transition-colors ${!annual ? 'bg-accent text-bg-primary' : 'text-text-secondary hover:text-white'}`}
-          >
-            Monthly
-          </button>
-          <button
-            onClick={() => { setAnnual(true); track('pricing_toggle_annual') }}
-            className={`text-sm font-semibold px-4 py-2 rounded-lg transition-colors ${annual ? 'bg-accent text-bg-primary' : 'text-text-secondary hover:text-white'}`}
-          >
-            Annual
-          </button>
-          {annual && (
-            <span className="text-accent text-sm font-semibold bg-accent/10 px-3 py-1 rounded-full">
-              2 months free
-            </span>
-          )}
+        <div className="mb-12">
+          <span className="text-accent text-sm font-semibold bg-accent/10 px-4 py-2 rounded-full">
+            Monthly billing · Cancel anytime
+          </span>
         </div>
 
         {/* Pricing cards */}
@@ -134,7 +117,7 @@ export default function Pricing() {
               </ul>
 
               <a
-                href="/signup"
+                href="/pricing"
                 onClick={() => track('cta_click_pricing_trial', { tier: tier.name })}
                 className={`text-center font-bold py-3 rounded-xl transition-opacity hover:opacity-90 ${
                   tier.popular

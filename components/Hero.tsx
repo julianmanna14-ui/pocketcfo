@@ -65,13 +65,13 @@ export default function Hero() {
           </div>
 
           <h1 className="text-4xl md:text-6xl font-black text-white leading-tight mb-6">
-            You&apos;re Losing Money{' '}
-            <span className="text-accent">Right Now.</span>{' '}
-            We&apos;ll Show You Exactly Where.
+            Most small businesses lose{' '}
+            <span className="text-accent">$1,000+ a month</span>{' '}
+            and never find out why.
           </h1>
 
           <p className="text-text-secondary text-lg mb-8 leading-relaxed">
-            While you sleep, your AI CFO is finding money you didn&apos;t know you had. Connect QuickBooks or Xero in 60 seconds. Our AI scans every expense, subscription, and vendor contract — then shows you exactly how to save.
+            PocketCFO connects to your QuickBooks, scans every expense, subscription, and vendor contract, and tells you exactly where the money is going — in plain English. Every Monday, a digest lands in your inbox with your top savings and one action to take. No spreadsheets. No accountant. No guessing.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 mb-6">
