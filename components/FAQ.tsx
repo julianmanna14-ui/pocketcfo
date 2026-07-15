@@ -27,6 +27,14 @@ const faqs = [
     question: 'Can I cancel anytime?',
     answer: 'Yes. No contracts, no cancellation fees, no questions asked.',
   },
+  {
+    question: "Why can't I just use ChatGPT or Claude for this?",
+    answer: "ChatGPT and Claude are general-purpose chat tools — you have to copy-paste your data manually every time, they have no memory of your business, and they can't connect to QuickBooks or your bank. PocketCFO is purpose-built: it connects directly to your accounts, runs analysis automatically every week, remembers your financials over time, and sends you a digest every Monday so you never have to think about it. It's the difference between asking a stranger for directions and having a CFO who already knows your business.",
+  },
+  {
+    question: 'Does this replace my accountant?',
+    answer: "No — it makes your accountant more effective. Your accountant spends hours pulling reports and spotting obvious issues. PocketCFO handles that automatically, so when you meet with your accountant they can focus on strategy, tax planning, and growth — not data cleanup. Think of it as a first layer that takes the pressure off.",
+  },
 ]
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {

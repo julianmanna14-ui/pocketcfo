@@ -9,6 +9,8 @@ const features = [
   { icon: '💰', title: 'Cash Flow Gaps', description: 'Identifies timing mismatches between income and payments before they become a crisis.' },
   { icon: '👥', title: 'Payroll Efficiency', description: 'Surfaces overtime patterns, redundant roles, or scheduling inefficiencies.' },
   { icon: '📈', title: 'Revenue Leakage', description: 'Catches unbilled work, missed invoices, and lost revenue hiding in your books.' },
+  { icon: '📬', title: 'Weekly Digest Email', description: 'Every Monday, get a plain-English summary of your top savings opportunities and one action to take — no login required.' },
+  { icon: '🤖', title: 'Always Watching', description: 'Unlike a human CFO who reviews last month\'s data, PocketCFO runs continuously so problems get caught in days, not quarters.' },
 ]
 
 const comparisonRows = [
