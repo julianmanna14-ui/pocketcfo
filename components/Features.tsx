@@ -14,7 +14,7 @@ const features = [
 ]
 
 const comparisonRows = [
-  { human: '$60,000–$120,000/year', ai: 'Starting at $79/month' },
+  { human: '$60,000–$120,000/year', ai: 'Starting at $49/month' },
   { human: '+ Health insurance', ai: 'No benefits package' },
   { human: '+ PTO & sick days', ai: 'Never takes a day off' },
   { human: '+ Payroll taxes', ai: 'No payroll taxes' },
