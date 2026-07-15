@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { UploadSection } from './upload'
+import { QBSyncButton } from './qb-sync'
 import type { AnalysisFindings } from '@/lib/ai-analyzer'
 
 interface Analysis {
@@ -54,7 +55,15 @@ export default async function DashboardPage() {
     .limit(1)
     .single() as { data: Analysis | null }
 
+  const { data: connection } = await supabase
+    .from('connections')
+    .select('provider')
+    .eq('user_id', user.id)
+    .eq('provider', 'quickbooks')
+    .single()
+
   const hasAnalysis = !!analysis
+  const hasQB = !!connection
 
   return (
     <div className="space-y-8">
@@ -65,12 +74,16 @@ export default async function DashboardPage() {
         </h1>
       </div>
 
-      {/* Upload section */}
-      <UploadSection
-        hasAnalysis={hasAnalysis}
-        summary={analysis?.summary ?? null}
-        lastRun={analysis?.created_at ?? null}
-      />
+      {/* Upload / sync section */}
+      {hasQB ? (
+        <QBSyncButton />
+      ) : (
+        <UploadSection
+          hasAnalysis={hasAnalysis}
+          summary={analysis?.summary ?? null}
+          lastRun={analysis?.created_at ?? null}
+        />
+      )}
 
       {/* Insight cards */}
       <div>
