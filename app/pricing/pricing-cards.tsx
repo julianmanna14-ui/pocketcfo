@@ -1,12 +1,14 @@
 'use client'
 
 import { useState } from 'react'
-import { PLANS } from '@/lib/stripe'
 
-export function PricingCards({ plans }: { plans: typeof PLANS }) {
+type Plan = { name: string; price: number; priceId: string; features: readonly string[] }
+type Plans = Record<string, Plan>
+
+export function PricingCards({ plans }: { plans: Plans }) {
   const [loading, setLoading] = useState<string | null>(null)
 
-  const checkout = async (plan: keyof typeof PLANS) => {
+  const checkout = async (plan: string) => {
     setLoading(plan)
     try {
       const res = await fetch('/api/stripe/checkout', {
@@ -22,7 +24,7 @@ export function PricingCards({ plans }: { plans: typeof PLANS }) {
     }
   }
 
-  const planKeys = Object.keys(plans) as (keyof typeof PLANS)[]
+  const planKeys = Object.keys(plans) as string[]
 
   return (
     <div className="grid md:grid-cols-3 gap-6">
