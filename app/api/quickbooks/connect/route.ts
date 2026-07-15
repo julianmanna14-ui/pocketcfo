@@ -22,6 +22,10 @@ export async function GET(request: NextRequest) {
     state: crypto.randomUUID(),
   })
 
+  console.log('[QB connect] clientId:', process.env.INTUIT_CLIENT_ID?.substring(0, 10))
+  console.log('[QB connect] redirectUri:', process.env.INTUIT_REDIRECT_URI)
+  console.log('[QB connect] authUri:', authUri)
+
   // 3. Redirect user to Intuit consent page
   return NextResponse.redirect(authUri)
 }
