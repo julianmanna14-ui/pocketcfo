@@ -109,7 +109,16 @@ export function ChatUI({ initialMessages }: { initialMessages: Message[] }) {
                   ? 'bg-accent text-bg-primary font-medium'
                   : 'bg-bg-secondary border border-white/10 text-white'
               }`}>
-                {msg.content || (
+                {msg.content ? (
+                  <span dangerouslySetInnerHTML={{
+                    __html: msg.content
+                      .replace(/&/g, '&amp;')
+                      .replace(/</g, '&lt;')
+                      .replace(/>/g, '&gt;')
+                      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                      .replace(/\n/g, '<br/>')
+                  }} />
+                ) : (
                   <span className="text-text-secondary animate-pulse">Thinking...</span>
                 )}
               </div>
