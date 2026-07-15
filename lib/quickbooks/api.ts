@@ -50,7 +50,7 @@ export async function fetchQBTransactions(
 ): Promise<TransactionSummary> {
   const endDate = new Date()
   const startDate = new Date()
-  startDate.setDate(startDate.getDate() - 90)
+  startDate.setFullYear(startDate.getFullYear() - 2)
 
   const start = startDate.toISOString().split('T')[0]
   const end = endDate.toISOString().split('T')[0]
