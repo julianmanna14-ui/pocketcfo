@@ -21,6 +21,9 @@ export default function DashboardLayout({
             <Link href="/dashboard" className="text-white font-semibold">
               Dashboard
             </Link>
+            <Link href="/dashboard/chat" className="text-text-secondary hover:text-white transition-colors">
+              Chat
+            </Link>
             <Link href="/dashboard/settings" className="text-text-secondary hover:text-white transition-colors">
               Settings
             </Link>
