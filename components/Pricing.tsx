@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import { track } from '@/lib/analytics'
 
 const tiers = [
@@ -55,10 +54,6 @@ const tiers = [
 ]
 
 export default function Pricing() {
-  const [annual, setAnnual] = useState(false)
-
-  const displayPrice = (monthly: number) =>
-    annual ? Math.round(monthly * (10 / 12)) : monthly
 
   return (
     <section id="pricing" className="bg-bg-primary py-24 px-6">
@@ -96,8 +91,8 @@ export default function Pricing() {
                 <h3 className="text-white font-bold text-xl mb-2">{tier.name}</h3>
                 <p className="text-text-secondary text-sm mb-4">{tier.description}</p>
                 <div className="flex items-end gap-1">
-                  <span className="text-white text-5xl font-black">${displayPrice(tier.monthlyPrice)}</span>
-                  <span className="text-text-secondary text-sm mb-2">/mo{annual ? ' billed annually' : ''}</span>
+                  <span className="text-white text-5xl font-black">${tier.monthlyPrice}</span>
+                  <span className="text-text-secondary text-sm mb-2">/mo</span>
                 </div>
               </div>
 
