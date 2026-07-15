@@ -17,9 +17,16 @@ export function PricingCards({ plans }: { plans: Plans }) {
         body: JSON.stringify({ plan }),
       })
       const data = await res.json()
-      if (data.url) window.location.href = data.url
-      else if (data.error === 'Unauthorized') window.location.href = '/login'
-    } catch {
+      if (data.url) {
+        window.location.href = data.url
+      } else if (data.error === 'Unauthorized') {
+        window.location.href = '/login'
+      } else {
+        alert('Error: ' + (data.error || JSON.stringify(data)))
+        setLoading(null)
+      }
+    } catch (e) {
+      alert('Network error: ' + e)
       setLoading(null)
     }
   }
