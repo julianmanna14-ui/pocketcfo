@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { getConnection } from '@/lib/quickbooks/tokens'
+import { SendDigestButton } from './digest-button'
 
 export default async function SettingsPage({
   searchParams,
@@ -33,6 +34,24 @@ export default async function SettingsPage({
           {errorMessages[error]}
         </div>
       )}
+
+      {/* Weekly Digest Card */}
+      <div className="bg-bg-secondary border border-white/5 rounded-2xl p-6 mb-6">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <h2 className="text-white font-semibold">Weekly Digest</h2>
+            <p className="text-text-secondary text-sm mt-0.5">
+              Every Monday at 9am we send a financial summary to your email.
+            </p>
+          </div>
+          <span className="flex-shrink-0 text-xs font-medium px-2.5 py-1 rounded-full bg-green-500/15 text-green-400">
+            Active
+          </span>
+        </div>
+        <div className="mt-6">
+          <SendDigestButton />
+        </div>
+      </div>
 
       {/* QuickBooks Connection Card */}
       <div className="bg-bg-secondary border border-white/5 rounded-2xl p-6">
