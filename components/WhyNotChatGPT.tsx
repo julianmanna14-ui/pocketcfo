@@ -31,7 +31,7 @@ const comparisons = [
 
 export default function WhyNotChatGPT() {
   return (
-    <section className="bg-bg-primary py-24 px-6">
+    <section id="why-not-chatgpt" className="bg-bg-primary py-24 px-6">
       <div className="max-w-5xl mx-auto">
         <FadeInUp>
           <p className="text-accent text-sm font-semibold uppercase tracking-widest mb-4">

@@ -17,7 +17,7 @@ export default function Nav() {
         {/* Center links — desktop */}
         <div className="hidden md:flex items-center gap-8 text-sm text-text-secondary">
           <a href="#how-it-works" className="hover:text-white transition-colors">How It Works</a>
-          <a href="#features" className="hover:text-white transition-colors">Features</a>
+          <a href="#why-not-chatgpt" className="hover:text-white transition-colors">Why Us</a>
           <a href="#pricing" className="hover:text-white transition-colors">Pricing</a>
         </div>
 
@@ -67,7 +67,7 @@ export default function Nav() {
       {open && (
         <div className="md:hidden border-t border-white/5 bg-bg-primary px-6 py-4 flex flex-col gap-4">
           <a href="#how-it-works" onClick={() => setOpen(false)} className="text-text-secondary hover:text-white transition-colors text-sm">How It Works</a>
-          <a href="#features" onClick={() => setOpen(false)} className="text-text-secondary hover:text-white transition-colors text-sm">Features</a>
+          <a href="#why-not-chatgpt" onClick={() => setOpen(false)} className="text-text-secondary hover:text-white transition-colors text-sm">Why Us</a>
           <a href="#pricing" onClick={() => setOpen(false)} className="text-text-secondary hover:text-white transition-colors text-sm">Pricing</a>
           <a href="#demo" onClick={() => setOpen(false)} className="text-text-secondary hover:text-white transition-colors text-sm">Book a Demo</a>
         </div>
