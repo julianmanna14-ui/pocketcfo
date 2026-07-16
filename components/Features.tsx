@@ -5,7 +5,7 @@ import { FadeInUp } from '@/components/FadeInUp'
 const features = [
   { icon: '💳', title: 'Subscription Audit', description: 'Finds duplicate, unused, or overpriced SaaS tools you forgot you\'re paying for.' },
   { icon: '🧾', title: 'Expense Analysis', description: 'Flags unusual spending patterns and categories bleeding cash.' },
-  { icon: '🤝', title: 'Vendor Contracts', description: 'Compares your rates against market benchmarks and spots renegotiation opportunities.' },
+  { icon: '🤝', title: 'Vendor Costs', description: 'Flags vendor charges that look unusually high based on your spending patterns and spots renegotiation opportunities.' },
   { icon: '💰', title: 'Cash Flow Gaps', description: 'Identifies timing mismatches between income and payments before they become a crisis.' },
   { icon: '👥', title: 'Payroll Efficiency', description: 'Surfaces overtime patterns, redundant roles, or scheduling inefficiencies.' },
   { icon: '📈', title: 'Revenue Leakage', description: 'Catches unbilled work, missed invoices, and lost revenue hiding in your books.' },

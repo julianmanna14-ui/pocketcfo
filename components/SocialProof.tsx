@@ -10,7 +10,7 @@ const testimonials = [
     saved: 'Saved $14,400/yr',
   },
   {
-    quote: 'I was overpaying three vendors by 20–30% compared to market rates. The AI flagged it with exact numbers. I renegotiated two contracts the same week.',
+    quote: 'The AI flagged three vendor charges that looked unusually high based on my spending. I dug into them and renegotiated two contracts the same week.',
     name: 'Lisa R.',
     role: 'Retail Boutique Owner',
     saved: 'Saved $8,600/yr',
