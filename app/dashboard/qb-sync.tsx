@@ -60,15 +60,31 @@ export function QBSyncButton() {
       {error && (
         <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3 mb-4">
           <p className="text-red-400 text-sm">{error}</p>
+          {error.toLowerCase().includes('invalid') || error.toLowerCase().includes('token') || error.toLowerCase().includes('authorize') ? (
+            <a
+              href="/api/quickbooks/connect"
+              className="inline-block mt-2 text-accent text-sm font-semibold hover:underline"
+            >
+              Reconnect QuickBooks →
+            </a>
+          ) : null}
         </div>
       )}
 
-      <button
-        onClick={handleSync}
-        className="bg-accent text-bg-primary font-bold px-6 py-3 rounded-xl hover:opacity-90 transition-opacity"
-      >
-        Sync QuickBooks Now
-      </button>
+      <div className="flex gap-3 flex-wrap">
+        <button
+          onClick={handleSync}
+          className="bg-accent text-bg-primary font-bold px-6 py-3 rounded-xl hover:opacity-90 transition-opacity"
+        >
+          Sync QuickBooks Now
+        </button>
+        <a
+          href="/api/quickbooks/connect"
+          className="border border-white/20 text-text-secondary font-semibold px-6 py-3 rounded-xl hover:border-white/40 hover:text-white transition-colors text-sm flex items-center"
+        >
+          Reconnect
+        </a>
+      </div>
     </div>
   )
 }
