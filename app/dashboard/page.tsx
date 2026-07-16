@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { UploadSection } from './upload'
 import { QBSyncButton } from './qb-sync'
+import { UpgradeBanner } from './upgrade-banner'
 import type { AnalysisFindings } from '@/lib/ai-analyzer'
 
 interface Analysis {
@@ -62,8 +63,16 @@ export default async function DashboardPage() {
     .eq('provider', 'quickbooks')
     .single()
 
+  const { data: subscription } = await supabase
+    .from('subscriptions')
+    .select('status, plan')
+    .eq('user_id', user.id)
+    .eq('status', 'active')
+    .single()
+
   const hasAnalysis = !!analysis
   const hasQB = !!connection
+  const isSubscribed = !!subscription
 
   return (
     <div className="space-y-8">
@@ -73,6 +82,11 @@ export default async function DashboardPage() {
           👋 Welcome, {user.email}
         </h1>
       </div>
+
+      {/* Upgrade banner — shown if they have analysis but no subscription */}
+      {hasAnalysis && !isSubscribed && analysis?.savings && (
+        <UpgradeBanner savings={analysis.savings.total} />
+      )}
 
       {/* Upload / sync section */}
       {hasQB ? (
