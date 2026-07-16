@@ -9,6 +9,7 @@ import Pricing from '@/components/Pricing'
 import FAQ from '@/components/FAQ'
 import FinalCTA from '@/components/FinalCTA'
 import Footer from '@/components/Footer'
+import DemoChat from '@/components/DemoChat'
 
 export default function Home() {
   return (
@@ -24,6 +25,7 @@ export default function Home() {
       <FAQ />
       <FinalCTA />
       <Footer />
+      <DemoChat />
     </main>
   )
 }
