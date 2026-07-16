@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/pricing`,
     customer_email: user.email,
     metadata: { user_id: user.id, plan },
-    subscription_data: { metadata: { user_id: user.id, plan } },
+    subscription_data: { trial_period_days: 30, metadata: { user_id: user.id, plan } },
   })
 
   return NextResponse.json({ url: session.url })

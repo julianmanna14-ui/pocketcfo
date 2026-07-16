@@ -125,7 +125,7 @@ export default function DemoChat() {
               <>
                 <div className="bg-white/5 rounded-xl px-4 py-3">
                   <p className="text-text-secondary text-sm leading-relaxed">
-                    Where should I send your full results? Enter your email to see what we found.
+                    Enter your email to see your results. First month completely free — no credit card required.
                   </p>
                 </div>
                 <input
@@ -206,7 +206,7 @@ export default function DemoChat() {
                   href="/signup"
                   className="w-full bg-accent text-bg-primary font-bold py-3 rounded-xl hover:opacity-90 transition-opacity text-center text-sm"
                 >
-                  Unlock all insights — Start free →
+                  Start your free month — no card needed →
                 </a>
 
                 <button onClick={reset} className="text-text-secondary text-xs text-center hover:text-white transition-colors">
