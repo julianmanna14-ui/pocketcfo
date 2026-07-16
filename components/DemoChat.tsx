@@ -15,37 +15,50 @@ interface Finding {
   category: string
 }
 
+type Step = 'input' | 'contact' | 'loading' | 'results'
+
 export default function DemoChat() {
   const [open, setOpen] = useState(false)
+  const [step, setStep] = useState<Step>('input')
   const [message, setMessage] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
   const [findings, setFindings] = useState<Finding[] | null>(null)
-  const [submitted, setSubmitted] = useState(false)
 
-  const handleSubmit = async () => {
-    if (!message.trim() || loading) return
-    setLoading(true)
-    setSubmitted(true)
+  const handleAnalyze = () => {
+    if (!message.trim()) return
+    setStep('contact')
+  }
 
-    try {
-      const res = await fetch('/api/demo-chat', {
+  const handleContact = async () => {
+    if (!email.trim()) return
+    setStep('loading')
+
+    // Fire both requests in parallel
+    const [analysisRes] = await Promise.all([
+      fetch('/api/demo-chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message }),
-      })
-      const data = await res.json()
-      if (data.findings) setFindings(data.findings)
-    } catch {
-      // silently fail
-    } finally {
-      setLoading(false)
-    }
+      }),
+      fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, phone, businessDescription: message }),
+      }),
+    ])
+
+    const data = await analysisRes.json()
+    if (data.findings) setFindings(data.findings)
+    setStep('results')
   }
 
   const reset = () => {
     setMessage('')
+    setEmail('')
+    setPhone('')
     setFindings(null)
-    setSubmitted(false)
+    setStep('input')
   }
 
   return (
@@ -80,8 +93,10 @@ export default function DemoChat() {
           </div>
 
           {/* Body */}
-          <div className="p-4 flex flex-col gap-4 max-h-[480px] overflow-y-auto">
-            {!submitted ? (
+          <div className="p-4 flex flex-col gap-4 max-h-[500px] overflow-y-auto">
+
+            {/* Step 1: Business description */}
+            {step === 'input' && (
               <>
                 <div className="bg-white/5 rounded-xl px-4 py-3">
                   <p className="text-text-secondary text-sm leading-relaxed">
@@ -96,19 +111,60 @@ export default function DemoChat() {
                   rows={4}
                 />
                 <button
-                  onClick={handleSubmit}
+                  onClick={handleAnalyze}
                   disabled={!message.trim()}
                   className="w-full bg-accent text-bg-primary font-bold py-3 rounded-xl hover:opacity-90 transition-opacity disabled:opacity-40"
                 >
                   Analyze my business →
                 </button>
               </>
-            ) : loading ? (
+            )}
+
+            {/* Step 2: Contact info */}
+            {step === 'contact' && (
+              <>
+                <div className="bg-white/5 rounded-xl px-4 py-3">
+                  <p className="text-text-secondary text-sm leading-relaxed">
+                    Where should I send your full results? Enter your email to see what we found.
+                  </p>
+                </div>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Email address *"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder:text-text-secondary focus:outline-none focus:border-accent/50 transition-colors"
+                />
+                <input
+                  type="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="Phone number (optional)"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder:text-text-secondary focus:outline-none focus:border-accent/50 transition-colors"
+                />
+                <button
+                  onClick={handleContact}
+                  disabled={!email.trim()}
+                  className="w-full bg-accent text-bg-primary font-bold py-3 rounded-xl hover:opacity-90 transition-opacity disabled:opacity-40"
+                >
+                  Show my results →
+                </button>
+                <button onClick={() => setStep('input')} className="text-text-secondary text-xs text-center hover:text-white transition-colors">
+                  ← Go back
+                </button>
+              </>
+            )}
+
+            {/* Step 3: Loading */}
+            {step === 'loading' && (
               <div className="flex flex-col items-center gap-3 py-8">
                 <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin" />
                 <p className="text-text-secondary text-sm">Analyzing your business...</p>
               </div>
-            ) : findings ? (
+            )}
+
+            {/* Step 4: Results */}
+            {step === 'results' && findings && (
               <>
                 <p className="text-accent text-xs font-semibold uppercase tracking-widest">
                   Found {findings.length} issues
@@ -140,8 +196,6 @@ export default function DemoChat() {
                       </div>
                     ))}
                   </div>
-
-                  {/* Lock overlay */}
                   <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
                     <span className="text-2xl">🔒</span>
                     <p className="text-white text-xs font-bold text-center">{findings.length - 1} more issues found</p>
@@ -159,7 +213,7 @@ export default function DemoChat() {
                   Try a different business
                 </button>
               </>
-            ) : null}
+            )}
           </div>
         </div>
       )}
