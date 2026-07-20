@@ -7,6 +7,7 @@ type Plans = Record<string, Plan>
 
 export function PricingCards({ plans }: { plans: Plans }) {
   const [loading, setLoading] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(null)
 
   const checkout = async (plan: string) => {
     setLoading(plan)
@@ -22,11 +23,11 @@ export function PricingCards({ plans }: { plans: Plans }) {
       } else if (data.error === 'Unauthorized') {
         window.location.href = '/login'
       } else {
-        alert('Error: ' + (data.error || JSON.stringify(data)))
+        setError('Something went wrong. Please try again.')
         setLoading(null)
       }
-    } catch (e) {
-      alert('Network error: ' + e)
+    } catch {
+      setError('Network error. Please check your connection and try again.')
       setLoading(null)
     }
   }
@@ -34,6 +35,10 @@ export function PricingCards({ plans }: { plans: Plans }) {
   const planKeys = Object.keys(plans) as string[]
 
   return (
+    <div>
+      {error && (
+        <p className="text-red-400 text-sm text-center mb-6">{error}</p>
+      )}
     <div className="grid md:grid-cols-3 gap-6">
       {planKeys.map((key) => {
         const plan = plans[key]
@@ -84,6 +89,7 @@ export function PricingCards({ plans }: { plans: Plans }) {
           </div>
         )
       })}
+    </div>
     </div>
   )
 }
