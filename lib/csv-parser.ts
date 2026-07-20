@@ -110,8 +110,9 @@ function parseExcel(buffer: Buffer): Record<string, string>[] {
 
 async function parsePdf(buffer: Buffer): Promise<Record<string, string>[]> {
   // Dynamically import pdf-parse to avoid SSR issues
-  const pdfParseModule = await import('pdf-parse')
-  const pdfParse = (pdfParseModule.default ?? pdfParseModule) as unknown as (buf: Buffer) => Promise<{ text: string }>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const pdfParseModule = await import('pdf-parse') as any
+  const pdfParse: (buf: Buffer) => Promise<{ text: string }> = pdfParseModule.default ?? pdfParseModule
   const data = await pdfParse(buffer)
   const text = data.text
 
