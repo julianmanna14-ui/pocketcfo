@@ -110,7 +110,8 @@ function parseExcel(buffer: Buffer): Record<string, string>[] {
 
 async function parsePdf(buffer: Buffer): Promise<Record<string, string>[]> {
   // Dynamically import pdf-parse to avoid SSR issues
-  const pdfParse = (await import('pdf-parse')).default
+  const pdfParseModule = await import('pdf-parse')
+  const pdfParse = (pdfParseModule.default ?? pdfParseModule) as unknown as (buf: Buffer) => Promise<{ text: string }>
   const data = await pdfParse(buffer)
   const text = data.text
 
