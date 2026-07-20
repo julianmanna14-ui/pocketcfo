@@ -3,53 +3,155 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
-type Step = 'welcome' | 'connect'
+type Step = 'chat' | 'plan' | 'connect'
+
+interface Action {
+  icon: string
+  title: string
+  detail: string
+}
+
+interface Plan {
+  greeting: string
+  actions: Action[]
+}
 
 export function OnboardingFlow() {
-  const [step, setStep] = useState<Step>('welcome')
+  const [step, setStep] = useState<Step>('chat')
+  const [message, setMessage] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [plan, setPlan] = useState<Plan | null>(null)
   const router = useRouter()
 
-  if (step === 'welcome') {
+  const handleSubmit = async () => {
+    if (!message.trim()) return
+    setLoading(true)
+
+    try {
+      const res = await fetch('/api/onboarding-plan', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message }),
+      })
+      const data = await res.json()
+      if (data.plan) {
+        setPlan(data.plan)
+        setStep('plan')
+      }
+    } catch {
+      // fall through to connect
+      setStep('connect')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // Step 1: Chat
+  if (step === 'chat') {
     return (
       <div className="min-h-screen bg-bg-primary flex items-center justify-center px-6">
-        <div className="max-w-lg w-full text-center">
-          <div className="text-6xl mb-6">👋</div>
-          <h1 className="text-3xl md:text-4xl font-black text-white mb-4">
-            Welcome to PocketCFO
-          </h1>
-          <p className="text-text-secondary text-lg mb-4 leading-relaxed">
-            In the next 60 seconds, your AI CFO will scan your finances and show you exactly where your money is going.
-          </p>
-          <div className="bg-bg-secondary border border-white/5 rounded-2xl p-6 mb-8 text-left space-y-3">
-            <div className="flex items-center gap-3 text-sm text-text-secondary">
-              <span className="text-accent font-bold">✓</span>
-              Finds hidden savings opportunities
-            </div>
-            <div className="flex items-center gap-3 text-sm text-text-secondary">
-              <span className="text-accent font-bold">✓</span>
-              Flags unused subscriptions and overpaid vendors
-            </div>
-            <div className="flex items-center gap-3 text-sm text-text-secondary">
-              <span className="text-accent font-bold">✓</span>
-              Sends you a digest every Monday — no login needed
-            </div>
-            <div className="flex items-center gap-3 text-sm text-text-secondary">
-              <span className="text-accent font-bold">✓</span>
-              Plain English — no finance background required
+        <div className="max-w-lg w-full">
+
+          {/* Header */}
+          <div className="text-center mb-8">
+            <div className="text-5xl mb-4">👋</div>
+            <h1 className="text-3xl font-black text-white mb-2">Welcome to PocketCFO</h1>
+            <p className="text-text-secondary">Let's build your custom action plan in 30 seconds.</p>
+          </div>
+
+          {/* Chat bubble from AI */}
+          <div className="flex items-start gap-3 mb-6">
+            <div className="w-9 h-9 rounded-full bg-accent flex items-center justify-center text-bg-primary font-black text-sm flex-shrink-0 mt-1">P</div>
+            <div className="bg-bg-secondary border border-white/10 rounded-2xl rounded-tl-sm px-5 py-4 flex-1">
+              <p className="text-text-secondary text-sm leading-relaxed">
+                Hey! Tell me about your business — what you do and roughly how much you spend per month. I'll put together a personalized plan for exactly what I'll find for you.
+              </p>
             </div>
           </div>
+
+          {/* User input */}
+          <div className="mb-4">
+            <textarea
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Enter' && e.metaKey) handleSubmit() }}
+              placeholder="e.g. I run a 6-person design agency, about $25k/month in expenses — software, contractors, and rent..."
+              className="w-full bg-bg-secondary border border-white/10 rounded-2xl px-5 py-4 text-white text-sm placeholder:text-text-secondary resize-none focus:outline-none focus:border-accent/50 transition-colors"
+              rows={4}
+            />
+          </div>
+
+          <button
+            onClick={handleSubmit}
+            disabled={!message.trim() || loading}
+            className="w-full bg-accent text-bg-primary font-bold text-lg rounded-xl px-8 py-4 hover:opacity-90 transition-opacity disabled:opacity-40 flex items-center justify-center gap-2"
+          >
+            {loading ? (
+              <>
+                <div className="w-4 h-4 border-2 border-bg-primary border-t-transparent rounded-full animate-spin" />
+                Building your plan...
+              </>
+            ) : (
+              'Build my action plan →'
+            )}
+          </button>
+
           <button
             onClick={() => setStep('connect')}
-            className="w-full bg-accent text-bg-primary font-bold text-lg rounded-xl px-8 py-4 hover:opacity-90 transition-opacity"
+            className="w-full text-center text-text-secondary text-xs mt-4 hover:text-white transition-colors"
           >
-            Let's find my savings →
+            Skip — take me straight to the dashboard
           </button>
-          <p className="text-text-secondary text-xs mt-4">Takes less than 60 seconds</p>
         </div>
       </div>
     )
   }
 
+  // Step 2: Plan
+  if (step === 'plan' && plan) {
+    return (
+      <div className="min-h-screen bg-bg-primary flex items-center justify-center px-6">
+        <div className="max-w-lg w-full">
+
+          <div className="text-center mb-8">
+            <div className="text-5xl mb-4">🎯</div>
+            <h1 className="text-2xl font-black text-white mb-2">Your custom action plan</h1>
+            <p className="text-text-secondary text-sm">{plan.greeting}</p>
+          </div>
+
+          {/* AI response bubble */}
+          <div className="flex items-start gap-3 mb-6">
+            <div className="w-9 h-9 rounded-full bg-accent flex items-center justify-center text-bg-primary font-black text-sm flex-shrink-0 mt-1">P</div>
+            <div className="bg-bg-secondary border border-white/10 rounded-2xl rounded-tl-sm px-5 py-4 flex-1">
+              <p className="text-text-secondary text-xs mb-4">Here's exactly what I'll dig into for your business:</p>
+              <div className="space-y-4">
+                {plan.actions.map((action, i) => (
+                  <div key={i} className="flex items-start gap-3">
+                    <span className="text-xl flex-shrink-0">{action.icon}</span>
+                    <div>
+                      <p className="text-white text-sm font-bold mb-0.5">{action.title}</p>
+                      <p className="text-text-secondary text-xs leading-relaxed">{action.detail}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <button
+            onClick={() => setStep('connect')}
+            className="w-full bg-accent text-bg-primary font-bold text-lg rounded-xl px-8 py-4 hover:opacity-90 transition-opacity"
+          >
+            Let's do this — connect my data →
+          </button>
+
+          <p className="text-center text-text-secondary text-xs mt-4">Takes less than 60 seconds</p>
+        </div>
+      </div>
+    )
+  }
+
+  // Step 3: Connect
   return (
     <div className="min-h-screen bg-bg-primary flex items-center justify-center px-6">
       <div className="max-w-lg w-full">
@@ -81,17 +183,17 @@ export function OnboardingFlow() {
             <span className="text-accent text-lg group-hover:translate-x-1 transition-transform">→</span>
           </a>
 
-          {/* CSV Upload */}
+          {/* CSV / Excel / PDF */}
           <button
             onClick={() => router.push('/dashboard')}
             className="w-full flex items-center gap-5 bg-bg-secondary border border-white/10 hover:border-accent/40 rounded-2xl p-6 transition-colors group text-left"
           >
             <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0 text-2xl">
-              📄
+              📁
             </div>
             <div className="flex-1">
-              <p className="text-white font-bold">Upload a CSV</p>
-              <p className="text-text-secondary text-sm">Export from any accounting software and upload</p>
+              <p className="text-white font-bold">Upload a file</p>
+              <p className="text-text-secondary text-sm">CSV, Excel, or PDF bank statement — any format works</p>
             </div>
             <span className="text-accent text-lg group-hover:translate-x-1 transition-transform">→</span>
           </button>
