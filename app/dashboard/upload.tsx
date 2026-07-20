@@ -9,11 +9,12 @@ interface Props {
   lastRun: string | null
 }
 
-const ALLOWED_EXTENSIONS = ['.csv', '.xlsx', '.xls']
+const ALLOWED_EXTENSIONS = ['.csv', '.xlsx', '.xls', '.pdf']
 const ALLOWED_TYPES = [
   'text/csv',
   'application/vnd.ms-excel',
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  'application/pdf',
 ]
 
 function formatRelativeTime(isoString: string): string {
@@ -39,7 +40,7 @@ export function UploadSection({ hasAnalysis, summary, lastRun }: Props) {
     setError(null)
 
     if (!ALLOWED_TYPES.includes(file.type)) {
-      setError('Please upload a CSV or Excel file (.csv or .xlsx)')
+      setError('Please upload a CSV, Excel (.xlsx), or PDF bank statement')
       return
     }
 
@@ -133,7 +134,7 @@ export function UploadSection({ hasAnalysis, summary, lastRun }: Props) {
         Connect your books to get started
       </h2>
       <p className="text-text-secondary mb-6">
-        Upload your QuickBooks CSV export or any accounting spreadsheet. Takes 30 seconds.
+        Upload your CSV export, Excel spreadsheet, or PDF bank statement. Takes 30 seconds.
       </p>
 
       {error && (
@@ -153,11 +154,11 @@ export function UploadSection({ hasAnalysis, summary, lastRun }: Props) {
         onClick={() => fileInputRef.current?.click()}
         className="bg-accent text-bg-primary font-bold px-6 py-3 rounded-xl hover:opacity-90 transition-opacity"
       >
-        📁 Upload CSV or Excel file
+        📁 Upload CSV, Excel, or PDF
       </button>
 
       <p className="text-text-secondary text-xs mt-4">
-        Works with: QuickBooks · Xero · FreshBooks · Excel · CSV
+        Works with: QuickBooks · Xero · FreshBooks · Excel · CSV · PDF bank statements
       </p>
     </div>
   )

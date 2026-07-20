@@ -8,6 +8,7 @@ const ALLOWED_TYPES = [
   'text/csv',
   'application/vnd.ms-excel',
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  'application/pdf',
 ]
 
 export async function POST(request: NextRequest) {
@@ -35,7 +36,7 @@ export async function POST(request: NextRequest) {
   // 3. Validate file type
   if (!ALLOWED_TYPES.includes(file.type)) {
     return NextResponse.json(
-      { error: 'Please upload a CSV or Excel (.xlsx) file' },
+      { error: 'Please upload a CSV, Excel (.xlsx), or PDF bank statement' },
       { status: 400 }
     )
   }

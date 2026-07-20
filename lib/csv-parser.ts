@@ -1,5 +1,6 @@
 import Papa from 'papaparse'
 import * as XLSX from 'xlsx'
+import Anthropic from '@anthropic-ai/sdk'
 
 export interface TransactionSummary {
   dateRange: { start: string; end: string }
@@ -107,12 +108,47 @@ function parseExcel(buffer: Buffer): Record<string, string>[] {
   return data
 }
 
+async function parsePdf(buffer: Buffer): Promise<Record<string, string>[]> {
+  // Dynamically import pdf-parse to avoid SSR issues
+  const pdfParse = (await import('pdf-parse')).default
+  const data = await pdfParse(buffer)
+  const text = data.text
+
+  // Use Claude to extract transactions from the raw PDF text
+  const client = new Anthropic()
+  const msg = await client.messages.create({
+    model: 'claude-sonnet-4-6',
+    max_tokens: 4096,
+    messages: [{
+      role: 'user',
+      content: `Extract all financial transactions from this bank statement or financial document. Return ONLY a JSON array of objects, each with: date (string), description (string), amount (number, negative for expenses/debits, positive for income/credits). No markdown, no explanation — just the raw JSON array.
+
+Document text:
+${text.slice(0, 50000)}`,
+    }],
+  })
+
+  const content = msg.content[0]
+  if (content.type !== 'text') throw new Error('Unexpected Claude response')
+
+  const jsonText = content.text.trim().replace(/^```json?\n?/, '').replace(/\n?```$/, '')
+  const transactions: { date: string; description: string; amount: number }[] = JSON.parse(jsonText)
+
+  return transactions.map(t => ({
+    date: t.date,
+    description: t.description,
+    amount: String(t.amount),
+  }))
+}
+
 export async function parseFinancialFile(buffer: Buffer, mimeType: string): Promise<TransactionSummary> {
   let rawData: Record<string, string>[]
 
   if (mimeType === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ||
       mimeType === 'application/vnd.ms-excel') {
     rawData = parseExcel(buffer)
+  } else if (mimeType === 'application/pdf') {
+    rawData = await parsePdf(buffer)
   } else {
     rawData = await parseCsv(buffer)
   }
