@@ -41,7 +41,8 @@ export async function GET(request: NextRequest) {
     refreshToken = token.refresh_token ?? ''
     expiresIn = token.expires_in ?? 3600
   } catch (err) {
-    console.error('[qb/callback] token exchange failed:', err)
+    console.error('[qb/callback] token exchange failed:', JSON.stringify(err, Object.getOwnPropertyNames(err)))
+    console.error('[qb/callback] callback url:', request.url)
     return NextResponse.redirect(
       new URL('/dashboard/settings?error=token_exchange_failed', request.url)
     )
