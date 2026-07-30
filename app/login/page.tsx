@@ -60,6 +60,12 @@ export default async function LoginPage({
               />
             </div>
 
+            <div className="flex justify-end">
+              <Link href="/forgot-password" className="text-sm text-accent hover:underline">
+                Forgot password?
+              </Link>
+            </div>
+
             <button
               type="submit"
               className="w-full bg-accent text-bg-primary font-bold py-3 rounded-xl hover:opacity-90 transition-opacity mt-2"
